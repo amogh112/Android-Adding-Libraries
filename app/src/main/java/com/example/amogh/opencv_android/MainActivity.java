@@ -25,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button grayCameraInit = (Button) findViewById(R.id.gray_cameraInit);
+        grayCameraInit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),EdgeDetection.class);
+                startActivity(i);
+            }
+        });
+
 
 
     // Example of a call to a native method

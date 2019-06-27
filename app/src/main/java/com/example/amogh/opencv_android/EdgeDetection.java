@@ -2,6 +2,7 @@ package com.example.amogh.opencv_android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -12,12 +13,13 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 
-public class OpenCVCamera extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class EdgeDetection extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
 
-    private static final String TAG = "OpenCVCamera";
+    private static final String TAG = "EdgeDetection";
     private CameraBridgeViewBase cameraBridgeViewBase;
 
     private BaseLoaderCallback baseLoaderCallback = new BaseLoaderCallback(this) {
+
         @Override
         public void onManagerConnected(int status) {
             switch (status) {
@@ -64,6 +66,6 @@ public class OpenCVCamera extends AppCompatActivity implements CameraBridgeViewB
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        return inputFrame.rgba();
+        return inputFrame.gray();
     }
 }
