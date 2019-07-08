@@ -67,9 +67,12 @@ public class EdgeDetection extends AppCompatActivity implements CameraBridgeView
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         Mat edges = inputFrame.gray();
-        detectEdges(edges.getNativeObjAddr());
-        return inputFrame.gray();
+        Mat color = inputFrame.rgba();
+//        detectEdges(edges.getNativeObjAddr());
+        cartoonify(edges.getNativeObjAddr(),color.getNativeObjAddr());
+        return color;
     }
 
     public native void detectEdges(long matGray);
+    public native void cartoonify(long matGray, long matRGB);
 }
