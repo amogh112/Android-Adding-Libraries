@@ -106,6 +106,7 @@ public class OpenCVCamera extends AppCompatActivity implements CameraBridgeViewB
     private Mat mIntermediateMat;
     private Mat mGray;
     private Mat mPrevGray;
+    private Mat flowUMat,flow;
 
     MatOfPoint2f prevFeatures, nextFeatures;
     MatOfPoint features;
@@ -172,6 +173,7 @@ public class OpenCVCamera extends AppCompatActivity implements CameraBridgeViewB
         nextFeatures = new MatOfPoint2f();
         status = new MatOfByte();
         err = new MatOfFloat();
+
     }
 
 
@@ -248,7 +250,7 @@ public class OpenCVCamera extends AppCompatActivity implements CameraBridgeViewB
                 mGray = inputFrame.rgba();
 
                 if (features.toArray().length == 0) {
-                    int rowStep = 50, colStep = 100;
+                    int rowStep = 50, colStep = 50;
                     int nRows = mGray.rows() / rowStep, nCols = mGray.cols() / colStep;
 
                     Point points[] = new Point[nRows * nCols];
@@ -266,8 +268,13 @@ public class OpenCVCamera extends AppCompatActivity implements CameraBridgeViewB
                 }
 
                 nextFeatures.fromArray(prevFeatures.toArray());
+                //sparse
                 Video.calcOpticalFlowPyrLK(mPrevGray, mGray,
                         prevFeatures, nextFeatures, status, err);
+
+//                Video.calcOpticalFlowFarneback(mPrevGray, mGray,
+//                        flowUMat,  0.5, 3, 15, 3, 5, 1.2, 0);
+//                flowUMat.copyTo(flow);
 
                 List<Point> prevList = features.toList(), nextList = nextFeatures.toList();
                 Scalar color = new Scalar(255,0,0);
